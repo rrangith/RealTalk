@@ -9,7 +9,7 @@ with open('fillers.txt') as file:
     fillers = file.readlines()
 
 
-class SpeechHandler(object):
+class Audio(object):
 
     def __init__(self):
         self.summary = {
@@ -90,7 +90,7 @@ class SpeechHandler(object):
                 crutch_word_count = 0
                 for word in fillers:
                     word_count = transcript.count(word)
-                    crutch_word_count = crutch_word_count + word_count
+                    crutch_word_count += word_count
                     self.summary['counts'][word] += word_count
 
                 self.summary['transcript'] = self.summary['transcript'] + transcript
@@ -101,5 +101,5 @@ class SpeechHandler(object):
 
                 num_chars_printed = 0
 
-
-SpeechHandler()
+    def getSummary(self):
+        return self.summary

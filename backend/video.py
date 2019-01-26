@@ -1,19 +1,20 @@
 from utils import detector_utils as detector_utils
 import cv2
-import tensorflow as tf
 import datetime
 
+
 class Video(object):
+
     def __init__(self):
         detection_graph, sess = detector_utils.load_inference_graph()
 
-        cap = cv2.VideoCapture(0) #0 gets computer's default camera
+        cap = cv2.VideoCapture(0)  # 0 gets computer's default camera
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 750)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 500)
 
         start_time = datetime.datetime.now()
         im_width, im_height = (cap.get(3), cap.get(4))
-        num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
+        num_hands_detect = 2  # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
         self.total_displacement = 0
@@ -62,10 +63,8 @@ class Video(object):
                 cv2.destroyAllWindows()
                 break
 
-    def getTotalDisplacement():
+    def getTotalDisplacement(self):
         return self.total_displacement
 
-    def getNumFrames():
+    def getNumFrames(self):
         return self.num_frames
-
-v = Video()
