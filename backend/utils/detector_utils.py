@@ -10,17 +10,10 @@ import cv2
 from utils import label_map_util
 from collections import defaultdict
 import math
-import requests
 
-total = 0
-old_point_first = None
-old_point_second = None
 
 detection_graph = tf.Graph()
 sys.path.append("..")
-
-# score threshold for showing bounding boxes.
-_score_thresh = 0.27
 
 MODEL_NAME = 'hand_inference_graph'
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
@@ -38,9 +31,7 @@ category_index = label_map_util.create_category_index(categories)
 
 # Load a frozen infrerence graph into memory
 def load_inference_graph():
-
     # load frozen tensorflow model into memory
-    print("> ====== loading HAND frozen graph into memory")
     detection_graph = tf.Graph()
     with detection_graph.as_default():
         od_graph_def = tf.GraphDef()
@@ -49,39 +40,28 @@ def load_inference_graph():
             od_graph_def.ParseFromString(serialized_graph)
             tf.import_graph_def(od_graph_def, name='')
         sess = tf.Session(graph=detection_graph)
-    print(">  ====== Hand Inference graph loaded.")
     return detection_graph, sess
 
 
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.
-def draw_box_on_image(hand_num, score_thresh, scores, boxes, im_width, im_height, image_np, frame_processed):
-    global total
-    global old_point_first
-    global old_point_second
-    if (scores[hand_num] > score_thresh):
-        (left, right, top, bottom) = (boxes[hand_num][1] * im_width, boxes[hand_num][3] * im_width,
-                                      boxes[hand_num][0] * im_height, boxes[hand_num][2] * im_height)
-        p1 = (int(left), int(top))
-        p2 = (int(right), int(bottom))
-        if hand_num == 0:
+def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np, old_points, calc_displacement):
+    displacement = 0
+    for i in range(num_hands_detect):
+        if (scores[i] > score_thresh):
+            (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
+                                          boxes[i][0] * im_height, boxes[i][2] * im_height)
+            p1 = (int(left), int(top))
+            p2 = (int(right), int(bottom))
+            cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
+            if calc_displacement:
+                if old_points[i] is None:
+                    old_points[i] = p1
+                else:
+                    displacement += math.sqrt(((p1[0]-old_points[i][0])**2)+((p1[1]-old_points[i][1])**2))
 
-            if old_point_first is None:
-                old_point_first = p1
-            elif frame_processed % 5 == 0:
-                total += math.sqrt(((p1[0]-old_point_first[0])**2)+((p1[1]-old_point_first[1])**2))
-                old_point_first = p1
-                # requests.post(url = 'http://localhost:4001/movement', data = data)
-        else:
-            if old_point_second is None:
-                old_point_second = p1
-            elif frame_processed % 5 == 0:
-                total += math.sqrt(((p1[0]-old_point_second[0])**2)+((p1[1]-old_point_second[1])**2))
-                old_point_second = p1
-                # requests.post(url = 'http://localhost:4001/movement', data = data)
+    return displacement
 
-        cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
-        return total/frame_processed #might need to multiply to normalize
 
 # Show fps value on image.
 def draw_fps_on_image(fps, image_np):
@@ -112,47 +92,3 @@ def detect_objects(image_np, detection_graph, sess):
             detection_classes, num_detections],
         feed_dict={image_tensor: image_np_expanded})
     return np.squeeze(boxes), np.squeeze(scores)
-
-
-# Code to thread reading camera input.
-# Source : Adrian Rosebrock
-# https://www.pyimagesearch.com/2017/02/06/faster-video-file-fps-with-cv2-videocapture-and-opencv/
-class WebcamVideoStream:
-    def __init__(self, src, width, height):
-        # initialize the video camera stream and read the first frame
-        # from the stream
-        self.stream = cv2.VideoCapture(src)
-        self.stream.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        self.stream.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
-        (self.grabbed, self.frame) = self.stream.read()
-
-        # initialize the variable used to indicate if the thread should
-        # be stopped
-        self.stopped = False
-
-    def start(self):
-        # start the thread to read frames from the video stream
-        Thread(target=self.update, args=()).start()
-        return self
-
-    def update(self):
-        # keep looping infinitely until the thread is stopped
-        while True:
-            # if the thread indicator variable is set, stop the thread
-            if self.stopped:
-                return
-
-            # otherwise, read the next frame from the stream
-            (self.grabbed, self.frame) = self.stream.read()
-
-    def read(self):
-        # return the frame most recently read
-        return self.frame
-
-    def size(self):
-        # return size of the capture device
-        return self.stream.get(3), self.stream.get(4)
-
-    def stop(self):
-        # indicate that the thread should be stopped
-        self.stopped = True
