@@ -70,12 +70,15 @@ const IconDescription = styled.p `
 `
 
 const Hand = styled.img`
+float: left;
 margin-top: 15px;
 width: 150px;
 `
 
 const FaceQuestion = styled.img `
-width: 130px;
+margin-top: 200px;
+float: right;
+width: 160px;
 `
 
 const Table = styled.table`
