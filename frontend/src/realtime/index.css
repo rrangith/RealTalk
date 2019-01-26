@@ -7,10 +7,7 @@
 #body-language{
     margin-bottom: -150px !important;
 }
-#body-language span {
-    position: relative;
-    top: 300px;
-}
+
 #grid-container {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -49,3 +46,15 @@
     background-image: linear-gradient(red, yellow);
 }
 
+#voice canvas{
+    width: 100% !important; 
+    vertical-align: middle;
+    height: 200px;
+}
+
+#filler {
+    margin-top: 70px;
+}
+#filler div {
+    font-size: 70px;
+}

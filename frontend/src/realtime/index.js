@@ -1,6 +1,8 @@
 import React from 'react';
 import { VictoryAxis, VictoryPie, VictoryChart, VictoryArea } from 'victory';
 import './index.css'
+import { ReactMic } from 'react-mic';
+
 
 const RealTime = () => {
     const data = [
@@ -9,6 +11,7 @@ const RealTime = () => {
         {quarter: 3, earnings: 14250},
         {quarter: 4, earnings: 19000}
       ];
+
   return (
       <div id="realtime">
         <div id="grid-container">
@@ -23,7 +26,7 @@ const RealTime = () => {
             <div className="grid-item-top">
                 Body language
                 <div id="body-language">
-                    <span>Score:</span>
+                <span>Score:</span>
                     <VictoryPie 
                         startAngle={60}
                         endAngle={-90}
@@ -35,8 +38,11 @@ const RealTime = () => {
             </div>
             <div className="grid-item-top">WebCam footage</div>
             <div className="grid-item-top">Facial Expressions</div>
-            <div className="grid-item-bottom"><div>300</div> Filler Words used
-
+            <div className="grid-item-bottom">
+                <div id="filler">  
+                    <div>300</div>
+                    Filler Words used
+                </div>
             </div>
             <div className="grid-item-bottom">
                 Talking speed
@@ -56,8 +62,16 @@ const RealTime = () => {
                     />
                 </VictoryChart>
             </div>
-            <div className="grid-item-bottom">Voice
-            
+            <div className="grid-item-bottom">
+            Voice
+                <div id="voice">
+                    <ReactMic
+                        id="voice"
+                        record={true}
+                        className="sound-wave"
+                        strokeColor="#4AC29A"
+                        backgroundColor="white" />
+                </div>
             </div>
         </div>
     </div>
