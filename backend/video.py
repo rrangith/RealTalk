@@ -18,7 +18,7 @@ class Video(object):
 
         self.total_displacement = 0
         old_points = [None]*num_hands_detect
-        self.num_frames = 0
+        self.num_frames = 1 #make this 1 to avoid division by 0 error
 
         cv2.namedWindow('Single-Threaded Detection', cv2.WINDOW_NORMAL)
 
@@ -52,6 +52,9 @@ class Video(object):
             self.num_frames += 1
             elapsed_time = (datetime.datetime.now() - start_time).total_seconds()
             fps = self.num_frames / elapsed_time
+            print(self.total_displacement/(10*self.num_frames))
+            detector_utils.draw_face(im_width, im_height, image_np)
+
 
             # Display FPS on frame:
             detector_utils.draw_fps_on_image("FPS : " + str(int(fps)), image_np)

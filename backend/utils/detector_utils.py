@@ -10,8 +10,9 @@ import cv2
 from utils import label_map_util
 from collections import defaultdict
 import math
+from google.cloud import vision
 
-
+vision_client = vision.ImageAnnotatorClient()
 detection_graph = tf.Graph()
 sys.path.append("..")
 
@@ -62,6 +63,13 @@ def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, i
 
     return displacement
 
+def draw_face(im_width, im_height, image_np):
+    image = vision_client.image(content=cv2.imencode('.jpg', image_np)[1].tostring())
+
+    faces = vision_client.face_detection(image=image, max_results=1).face_annotations #can change max_results if you want more faces
+
+    for face in faces:
+        pass
 
 # Show fps value on image.
 def draw_fps_on_image(fps, image_np):
