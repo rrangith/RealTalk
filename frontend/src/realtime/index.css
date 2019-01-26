@@ -1,0 +1,61 @@
+#realtime{
+    background-color: rgba(242, 247, 240, 0.8);
+    display: flex;
+    height: 100vh;
+
+}
+#body-language{
+    margin-bottom: -150px !important;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 50px;
+    width: 80%;
+    margin: 10px auto auto auto;
+    
+}
+.grid-item-top {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    grid-row: 1;
+    transition: transform .2s; 
+}
+.grid-item-top:hover{
+    transform: scale(1.02); 
+}
+.grid-item-bottom {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgb(196, 196, 196);
+    border-radius: 10px;    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    grid-row: 2;
+    transition: transform .2s; 
+}
+.grid-item-bottom:hover{
+    transform: scale(1.02); 
+}
+
+#talk-data{
+    background-image: linear-gradient(red, yellow);
+}
+
+#voice canvas{
+    width: 100% !important; 
+    margin-top: 30px;
+    height: 200px;
+}
+
+#filler {
+    margin-top: 70px;
+}
+#filler div {
+    font-size: 90px;
+    color: #4AC29A;
+}
