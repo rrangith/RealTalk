@@ -1,0 +1,32 @@
+#grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    height: 100vh;
+    width: 90%;
+    margin: auto;
+    border-radius: 10px;
+}
+.grid-item-top {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 0.5px solid rgb(196, 196, 196);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    grid-row: 1;
+}
+.grid-item-bottom {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgb(196, 196, 196);
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+    grid-row: 2;
+}
+
+#talk-data{
+    /* fill: #4AC29A;  
+    fill: -webkit-linear-gradient(to bottom, #BDFFF3, #4AC29A);  
+    fill: linear-gradient(to bottom, #BDFFF3, #4AC29A);  */
+    background-image: linear-gradient(red, yellow);
+}
+
