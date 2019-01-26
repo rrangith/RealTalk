@@ -9,6 +9,7 @@ from datetime import datetime
 import cv2
 from utils import label_map_util
 from collections import defaultdict
+import math
 
 
 detection_graph = tf.Graph()
@@ -44,7 +45,8 @@ def load_inference_graph():
 
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.
-def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np):
+def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np, old_points, calc_displacement):
+    displacement = 0
     for i in range(num_hands_detect):
         if (scores[i] > score_thresh):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
@@ -52,6 +54,13 @@ def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, i
             p1 = (int(left), int(top))
             p2 = (int(right), int(bottom))
             cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
+            if calc_displacement:
+                if old_points[i] is None:
+                    old_points[i] = p1
+                else:
+                    displacement += math.sqrt(((p1[0]-old_points[i][0])**2)+((p1[1]-old_points[i][1])**2))
+
+    return displacement
 
 
 # Show fps value on image.
