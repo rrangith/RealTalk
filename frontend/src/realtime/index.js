@@ -1,10 +1,12 @@
 import React from 'react';
 import { VictoryAxis, VictoryPie, VictoryChart, VictoryArea } from 'victory';
 import './index.css'
+import Webcam from 'react-webcam';
 import { ReactMic } from 'react-mic';
 
 
-const RealTime = () => {
+const RealTime = (score, expression, filler, speed) => {
+    console.log(score);
     const data = [
         {quarter: 1, earnings: 13000},
         {quarter: 2, earnings: 16500},
@@ -36,7 +38,7 @@ const RealTime = () => {
                     />
                 </div>
             </div>
-            <div className="grid-item-top">WebCam footage</div>
+            <div className="grid-item-top"><Webcam height={300} width={400}/></div>
             <div className="grid-item-top">Facial Expressions</div>
             <div className="grid-item-bottom">
                 <div id="filler">  
