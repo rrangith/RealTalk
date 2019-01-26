@@ -5,3 +5,5 @@ tensorflow>=1.7.0
 protobuf>=3.5.2.post1
 websocket_client>=0.47.0
 -e git://github.com/dpallot/simple-websocket-server.git#egg=SimpleWebSocketServer
+google-cloud-speech==0.36.0
+pyaudio==0.2.11

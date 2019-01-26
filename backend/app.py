@@ -1,9 +1,12 @@
 from flask import Flask, render_template, redirect, url_for, jsonify, request, abort
+from speech import SpeechHandler
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-web_socket_port = 5006
-web_socket_client_url = "ws://localhost:5006"
+
+
+SPEECH = None
+VISION = None
 
 
 @app.route('/', methods=['GET'])
@@ -13,15 +16,7 @@ def index():
 
 @app.route('/start', methods=['POST'])
 def start_recording():
-    if not request.json:
-        return abort(400)
-
-    data = request.json
-    width = data['width']
-    height = data['length']
-    if not isinstance(width, int) or not isinstance(height, int):
-        return abort(400)
-
+    VISION = SpeechHandler()
     return jsonify(success=True)
 
 
