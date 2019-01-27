@@ -37,7 +37,7 @@ const Description = styled.p`
 `;
 const Table = styled.table`
   table-layout: fixed;
-  margin-top: 40px;
+  margin-top: 10px;
   margin-left: 10px;
   width: 99%;
 `;
@@ -160,7 +160,6 @@ const Button = styled.button`
   font-family: "Raleway", sans-serif;
   font-size: 25px;
   padding: 15px;
-  margin: 15px;
   border-radius: 15px;
   border: 1px solid #4ac29a;
   color: #4ac29a;
