@@ -17,21 +17,21 @@ class RealTime extends React.Component {
       };    
     capture = () => {
         const imageSrc = this.webcam.getScreenshot();
-        var http = new XMLHttpRequest();
-        var params = 'data='+imageSrc;
-        http.open('POST', 'http://localhost:5000/sendVideo', true);
+        var url = "http://localhost:5000/sendVideo";
+
+        var json = JSON.stringify(imageSrc);
         
-        //Send the proper header information along with the request
-        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        
-        http.onreadystatechange = function() {//Call a function when the state changes.
-            if(http.readyState == 4 && http.status == 200) {
-                alert(http.responseText);
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.onload = function () {
+            if(xhr.readyState == 4 && xhr.status == "201") {
+                console.log(xhr.responseText);
             }
         }
-        http.send(params);
+        xhr.send(json);
     }
-    component(){
+    componentDidMount(){
         setInterval(this.capture, 200)
     }
     render(){
