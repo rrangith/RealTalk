@@ -1,6 +1,5 @@
 from utils import detector_utils as detector_utils
 import cv2
-import tensorflow as tf
 import datetime
 
 from statistics import mode
@@ -17,6 +16,7 @@ from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
 
 class Video(object):
+
     def __init__(self):
         detection_graph, sess = detector_utils.load_inference_graph()
 
@@ -45,7 +45,7 @@ class Video(object):
 
         start_time = datetime.datetime.now()
         im_width, im_height = (cap.get(3), cap.get(4))
-        num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
+        num_hands_detect = 2  # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
         self.total_displacement = 0
@@ -123,13 +123,11 @@ class Video(object):
                 cv2.destroyAllWindows()
                 break
 
-    def getTotalDisplacement():
+    def getTotalDisplacement(self):
         return self.total_displacement
 
-    def getNumFrames():
+    def getNumFrames(self):
         return self.num_frames
 
-    def getCurrentEmotion():
+    def getCurrentEmotion(self):
         return self.current_emotion
-
-v = Video()
