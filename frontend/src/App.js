@@ -8,10 +8,36 @@ import { Section } from './summary'
 import "./App.css";
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.RT = React.createRef()   // Create a ref object
+    constructor(props) {
+    super(props);
+    this.state = {
+      load: ""
+    };
+    this.RT = React.createRef();
   }
+  queryData = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        this.setState({
+          load: JSON.parse(xhr.responseText)
+        });
+      }
+    }.bind(this);
+    xhr.open("GET", "http://localhost:5000/current", true);
+    xhr.send(null);
+  };
+  componentDidMount() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == XMLHttpRequest.DONE) {
+        setInterval(this.queryData, 500);
+      }
+    }.bind(this);
+    xhr.open("GET", "http://localhost:5000/start", true);
+    xhr.send(null);
+}
+
   render() {
     console.log(this.state.load);
     return (

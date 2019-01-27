@@ -27,14 +27,14 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/start', methods=['POST'])
+@app.route('/start', methods=['GET'])
 def start_recording():
-    #Thread(target=start_speech).start()
-    #Thread(target=start_vision).start()
+    Thread(target=start_speech).start()
+    Thread(target=start_vision).start()
     return jsonify(success=True)
 
 
-@app.route('/current', methods=['POST'])
+@app.route('/current', methods=['GET'])
 def get_scores():
     global VISION
     global SPEECH
@@ -52,6 +52,4 @@ def get_scores():
 
 
 if __name__ == '__main__':
-    Thread(target=start_speech).start()
-    Thread(target=start_vision).start()
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=False)
