@@ -11,7 +11,7 @@ class App extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      load: {"audio":{"counts":{"basically":0,"like":0,"literally":0,"mean":0,"okay":0,"really":0,"right":0,"stuff":0,"things":0,"um":0,"very":0,"yeah":0},"crutch_count_by_line":[0],"wpm_by_line":[0]},"video":{"currentEmotion":"","":0,"":{"angry":0,"fear":0,"happy":0,"neutral":0},"frames":0}},
+      load: {"audio":{"counts":{"basically":0,"like":0,"literally":0,"mean":0,"okay":0,"really":0,"right":0,"stuff":0,"things":0,"um":0,"very":0,"yeah":0},"crutch_count_by_line":[0],"wpm_by_line":[0]},"video":{"currentEmotion":"surprised","displacement":0,"emotions":{"angry":0,"fear":0,"happy":0,"neutral":0},"frames":0}},
       currentTalkSpeed:[],
     };
     this.RT = React.createRef();
@@ -50,7 +50,7 @@ class App extends Component {
     return (
       <div className="App">
         <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
-        <RealTime ref={this.RT} data={{score: this.state.load.video.displacement/(10*this.state.load.video.frames), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.load.audio.currentTalkSpeed}}/>
+        <RealTime ref={this.RT} data={{score: this.state.load.video.displacement/(10*this.state.load.video.frames), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed}}/>
         {/* <Summary summaryData= {
           {
             expression:{

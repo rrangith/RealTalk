@@ -27,7 +27,7 @@ class RealTime extends React.Component {
                     <div className="grid-item-top">
                         Body Language <hr/>
                         <div id="body-language">
-                        <span>Score: {this.props.data.score}</span>
+                        <span>Score: {Math.round(this.props.data.score * 100) / 100}</span>
                             <VictoryPie 
                                 startAngle={-90+(180*(this.props.data.score/50))}
                                 endAngle={-90}
