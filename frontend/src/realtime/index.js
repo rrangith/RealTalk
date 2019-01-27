@@ -1,8 +1,10 @@
 import React from 'react';
 import { VictoryAxis, VictoryPie, VictoryChart, VictoryArea } from 'victory';
-import './index.css'
 import Webcam from 'react-webcam';
 import { ReactMic } from 'react-mic';
+import { FaSmile, FaFrown, FaSurprise, FaAngry, FaMehBlank } from 'react-icons/fa';
+import './index.css'
+
 
 
 const RealTime = (props) => {
@@ -32,7 +34,25 @@ const RealTime = (props) => {
                     </div>
                 </div>
                 <div id="cam" className="grid-item-top"><Webcam height={350} width={400}/></div>
-                <div className="grid-item-top">Facial Expressions</div>
+                <div className="grid-item-top">
+                    Facial Expressions <br/>
+                    {props.data.expression.toLowerCase() === "happy"  ?  <FaSmile className="happy"/>:""}
+                    {props.data.expression.toLowerCase() === "surprised"  ?  <FaSurprise className="happy"/>:""}
+                    {props.data.expression.toLowerCase() === "neutral"  ?  <FaMehBlank className="neutral"/>:""}
+                    {props.data.expression.toLowerCase() === "sad"  ?  <FaFrown className="sad"/>:""}
+                    {props.data.expression.toLowerCase() === "angry"  ?  <FaAngry className="sad"/>:""}
+                    {props.data.expression.toLowerCase() === "neutral"  ?  <div className="neutralText">{props.data.expression}
+                        </div> 
+                        :
+                        <span>
+                            {props.data.expression.toLowerCase() === "happy" || props.data.expression.toLowerCase() === "surprised" ? 
+                                <div className="happyText">{props.data.expression}</div>
+                            :
+                                <div className="sadText">{props.data.expression}</div>
+                            }
+                        </span> 
+                    }
+                </div>
                 <div className="grid-item-bottom">
                     <div id="filler">  
                         <div>{props.data.filler}</div>

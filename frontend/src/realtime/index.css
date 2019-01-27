@@ -75,6 +75,37 @@
 
 #cam video {
     width: auto;
-    height: 372px;
-    margin-bottom: -10px;
+    height: 400px;
+    margin-bottom: -50px;
+}
+
+.happy{
+    color: #4AC29A;
+    width: 100px;
+    font-size: 90px;
+    margin-top: 60px;  
+}
+.happyText{
+    color: #4AC29A;
+    text-transform:capitalize;
+}
+.sad{
+    color: rgb(194, 74, 74);
+    width: 100px;
+    font-size: 90px;
+    margin-top: 60px;  
+}
+.sadText{
+    color: rgb(194, 74, 74);
+    text-transform:capitalize;
+}
+.neutral{
+    color: rgb(196, 196, 196);
+    width: 100px;
+    font-size: 90px;
+    margin-top: 60px;  
+}
+.neutralText{
+    color: rgb(196, 196, 196);
+    text-transform:capitalize;
 }
