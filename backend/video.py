@@ -111,21 +111,7 @@ class Video(object):
                 except:
                     continue
 
-                if self.current_emotion == 'angry':
-                    color = emotion_probability * np.asarray((255, 0, 0))
-                elif self.current_emotion == 'sad':
-                    color = emotion_probability * np.asarray((0, 0, 255))
-                elif self.current_emotion == 'happy':
-                    color = emotion_probability * np.asarray((255, 255, 0))
-                elif self.current_emotion == 'surprise':
-                    color = emotion_probability * np.asarray((0, 255, 255))
-                else:
-                    color = emotion_probability * np.asarray((0, 255, 0))
-
-                color = color.astype(int)
-                color = color.tolist()
-
-                draw_bounding_box(face_coordinates, image_np, color)
+                draw_bounding_box(face_coordinates, image_np)
 
 
             # Display FPS on frame:

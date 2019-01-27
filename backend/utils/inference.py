@@ -14,9 +14,9 @@ def load_detection_model(model_path):
 def detect_faces(detection_model, gray_image_array):
     return detection_model.detectMultiScale(gray_image_array, 1.3, 5)
 
-def draw_bounding_box(face_coordinates, image_array, color):
+def draw_bounding_box(face_coordinates, image_array):
     x, y, w, h = face_coordinates
-    cv2.rectangle(image_array, (x, y), (x + w, y + h), color, 2)
+    cv2.rectangle(image_array, (x, y), (x + w, y + h), (77, 255, 9), 2)
 
 def apply_offsets(face_coordinates, offsets):
     x, y, width, height = face_coordinates
@@ -34,4 +34,3 @@ def get_colors(num_classes):
     colors = plt.cm.hsv(np.linspace(0, 1, num_classes)).tolist()
     colors = np.asarray(colors) * 255
     return colors
-
