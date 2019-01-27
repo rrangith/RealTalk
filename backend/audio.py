@@ -6,7 +6,7 @@ import sys
 import time
 
 with open('fillers.txt') as file:
-    fillers = file.readlines()
+    fillers = file.read().splitlines()
 
 
 class Audio(object):
@@ -20,6 +20,7 @@ class Audio(object):
         }
         for filler in fillers:
             self.summary['counts'][filler] = 0
+    def run(self):
         # See http://g.co/cloud/speech/docs/languages
         # for a list of supported languages.
         language_code = 'en-US'  # a BCP-47 language tag
@@ -95,7 +96,7 @@ class Audio(object):
 
                 self.summary['transcript'] = self.summary['transcript'] + transcript
                 self.summary['crutch_count_by_line'].append(crutch_word_count)
-                self.summary['wpm_by_line'].append(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60))
+                self.summary['wpm_by_line'].append(round(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60)))
                 print(str(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60)))
                 self.last_time = time.time()
 

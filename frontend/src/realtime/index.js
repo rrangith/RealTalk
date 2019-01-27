@@ -27,10 +27,11 @@ class RealTime extends React.Component {
                     <div className="grid-item-top">
                         Body Language <hr/>
                         <div id="body-language">
-                        <span>Score: {this.props.data.score}</span>
+                        <span>Score: {Math.round(this.props.data.score * 100) / 100}</span>
                             <VictoryPie 
-                                startAngle={-90+(180*(this.props.data.score/50))}
+                                startAngle={-90+(180*(this.props.data.score/10))}
                                 endAngle={-90}
+                                animate={{duration: 500}}
                                 colorScale={["url(#talk-data)"]}
                                 data={[1]}
                                 labels={() => null}
@@ -52,7 +53,11 @@ class RealTime extends React.Component {
                                 {this.props.data.expression.toLowerCase() === "happy" || this.props.data.expression.toLowerCase() === "surprised" ? 
                                     <div className="happyText">{this.props.data.expression}</div>
                                 :
-                                    <div className="sadText">{this.props.data.expression}</div>
+                                    <span>
+                                        {this.props.data.expression.toLowerCase() ==="angry" || this.props.data.expression.toLowerCase() ==="sad" ? <div className="sadText">{this.props.data.expression}</div>
+                                        : 
+                                        <div className="neutralText">Neutral</div>}
+                                    </span>
                                 }
                             </span> 
                         }
@@ -68,16 +73,11 @@ class RealTime extends React.Component {
                         <VictoryChart>
                             <VictoryArea
                             interpolation="natural"
+                            animate={{ duration: 2000 }}
                             style={{
                                 data: {fill: "url(#talk-data)"}
                             }}
-                            data={[
-                                { x: 1, y: 2 },
-                                { x: 2, y: 3 },
-                                { x: 3, y: 7 },
-                                { x: 4, y: 4 },
-                                { x: 5, y: 5 }
-                            ]}
+                            data={this.props.data.speed}
                             />
                         </VictoryChart>
                     </div>
