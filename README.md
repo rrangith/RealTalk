@@ -20,3 +20,10 @@ We'd like to transform the app into an actual service where people could log in 
 Tracks movement of hands and face to provide real-time analysis on expressions and body-language.
 
 ![Image](https://i.imgur.com/tZAM0sI.gif)
+
+### Based On: 
+https://github.com/amccannv/uoft2019
+
+### Image Classification Models:
+https://github.com/victordibia/handtracking
+https://github.com/oarriaga/face_classification
