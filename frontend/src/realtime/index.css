@@ -2,7 +2,7 @@
     background-color: rgba(242, 247, 240, 0.8);
     display: flex;
     height: 100vh;
-
+    padding-top: 50px;
 }
 #body-language{
     margin-bottom: -150px !important;
