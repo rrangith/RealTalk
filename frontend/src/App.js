@@ -21,7 +21,8 @@ class App extends Component {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         let copySpeed = this.state.currentTalkSpeed;
-        copySpeed.push({"x": this.state.currentTalkSpeed.length+1, "y": JSON.parse(xhr.responseText).data.audio.wpm_by_line})
+        copySpeed.push({x: this.state.currentTalkSpeed.length+1, y: JSON.parse(xhr.responseText).data.audio.wpm_by_line})
+        console.log(copySpeed);
         this.setState({
           load: JSON.parse(xhr.responseText).data,
           currentTalkSpeed: copySpeed

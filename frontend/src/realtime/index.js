@@ -31,6 +31,7 @@ class RealTime extends React.Component {
                             <VictoryPie 
                                 startAngle={-90+(180*(this.props.data.score/10))}
                                 endAngle={-90}
+                                animate={{duration: 500}}
                                 colorScale={["url(#talk-data)"]}
                                 data={[1]}
                                 labels={() => null}
@@ -52,7 +53,11 @@ class RealTime extends React.Component {
                                 {this.props.data.expression.toLowerCase() === "happy" || this.props.data.expression.toLowerCase() === "surprised" ? 
                                     <div className="happyText">{this.props.data.expression}</div>
                                 :
-                                    <div className="sadText">{this.props.data.expression}</div>
+                                    <span>
+                                        {this.props.data.expression.toLowerCase() ==="angry" || this.props.data.expression.toLowerCase() ==="sad" ? <div className="sadText">{this.props.data.expression}</div>
+                                        : 
+                                        <div className="neutralText">Neutral</div>}
+                                    </span>
                                 }
                             </span> 
                         }
