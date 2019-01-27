@@ -11,7 +11,8 @@ class App extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      load: ""
+      load: "",
+      currentTalkSpeed:[],
     };
     this.RT = React.createRef();
   }
@@ -19,14 +20,20 @@ class App extends Component {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
+        let copySpeed = this.state.currentTalkSpeed;
+        copySpeed.push({x: currentTalkSpeed.length+1, y: JSON.parse(xhr.responseText).data.audio.wpm_by_line})
         this.setState({
-          load: JSON.parse(xhr.responseText)
+          load: JSON.parse(xhr.responseText),
+          currentTalkSpeed: copySpeed
         });
       }
     }.bind(this);
     xhr.open("GET", "http://localhost:5000/current", true);
     xhr.send(null);
   };
+  sumCount = (data) => {
+    return (data.basically+data.like+data.literally+data.mean+data.okay+data.really+data.right+data.stuff+data.things+data.um+data.very+data.yeah);
+  }
   componentDidMount() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
@@ -43,7 +50,7 @@ class App extends Component {
     return (
       <div className="App">
         <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
-        <RealTime ref={this.RT} data={{score: 40, expression: "happy", filler: 300, speed: null}}/>
+        <RealTime ref={this.RT} data={{score: this.state.load.data.video.displacement/(10*this.state.load.data.video.frames), expression: this.state.load.data.video.currentEmotion, filler: this.sumCount(this.state.load.data.audio.counts), speed: this.state.load.data.audio.currentTalkSpeed}}/>
         {/* <Summary summaryData= {
           {
             expression:{
