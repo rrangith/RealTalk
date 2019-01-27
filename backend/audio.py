@@ -6,7 +6,7 @@ import sys
 import time
 
 with open('fillers.txt') as file:
-    fillers = file.readlines()
+    fillers = file.read().splitlines()
 
 
 class Audio(object):
@@ -96,7 +96,7 @@ class Audio(object):
 
                 self.summary['transcript'] = self.summary['transcript'] + transcript
                 self.summary['crutch_count_by_line'].append(crutch_word_count)
-                self.summary['wpm_by_line'].append(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60))
+                self.summary['wpm_by_line'].append(round(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60)))
                 print(str(len(transcript.split(' ')) / ((time.time() - self.last_time) / 60)))
                 self.last_time = time.time()
 
