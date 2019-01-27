@@ -1,4 +1,4 @@
-#RealTalk
+# RealTalk
 
 ## Inspiration
 Many of us have a hard time preparing for interviews, presentations, and any other social situation. We wanted to sit down and have a real talk... with ourselves.
