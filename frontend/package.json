@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react": "^16.7.0",
+    "react-animations": "^1.0.0",
     "react-dom": "^16.7.0",
     "react-icons": "^3.3.0",
     "react-mic": "^12.4.1",

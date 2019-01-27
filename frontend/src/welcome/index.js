@@ -23,6 +23,7 @@ const Title = styled.h1`
   color: #ffffff;
   padding-top: 50px;
   font-size: 45px;
+  margin: 0px;
 `;
 const Description = styled.p`
   @import url("https://fonts.googleapis.com/css?family=Encode+Sans:400");
@@ -38,7 +39,7 @@ const Table = styled.table`
   table-layout: fixed;
   margin-top: 40px;
   margin-left: 10px;
-  width: 100%;
+  width: 99%;
 `;
 
 const Cell = styled.td`
