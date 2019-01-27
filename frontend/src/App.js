@@ -9,7 +9,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Welcome/>
+        <RealTime data={{score: 40, expression: "surprised", filler: 300, speed: null}}/>
       </div>
     );
   }

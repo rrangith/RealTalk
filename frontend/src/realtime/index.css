@@ -24,10 +24,11 @@
     font-size: 30px;
     text-align: center;
     grid-row: 1;
-    transition: transform .2s; 
+    transition: transform .2s, box-shadow .3s; 
 }
 .grid-item-top:hover{
     transform: scale(1.02); 
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 .grid-item-bottom {
     background-color: rgba(255, 255, 255, 0.8);
@@ -36,10 +37,12 @@
     font-size: 30px;
     text-align: center;
     grid-row: 2;
-    transition: transform .2s; 
+    transition: transform .2s, box-shadow .3s;
+
 }
 .grid-item-bottom:hover{
     transform: scale(1.02); 
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 
 #talk-data{
@@ -58,4 +61,20 @@
 #filler div {
     font-size: 90px;
     color: #4AC29A;
+}
+.description {
+    float: left;
+}
+
+#cam {
+    border-radius: 10px;
+    padding: 0px;
+    overflow: hidden;
+    width: -webkit-fill-available;
+}
+
+#cam video {
+    width: auto;
+    height: 372px;
+    margin-bottom: -10px;
 }
