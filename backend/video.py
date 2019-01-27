@@ -16,6 +16,12 @@ from utils.inference import apply_offsets
 from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
 
+from PIL import Image
+import queue
+import base64
+import io
+
+
 class Video(object):
     def __init__(self):
         self.total_displacement = 0
@@ -30,6 +36,8 @@ class Video(object):
         self.emotions['neutral'] = 0
         self.emotions['surprise'] = 0
         self.emotions['fear'] = 0
+
+        self.image_queue = queue.Queue()
 
 
     def run(self):
@@ -54,12 +62,8 @@ class Video(object):
         # starting lists for calculating modes
         emotion_window = []
 
-        cap = cv2.VideoCapture(0) #0 gets computer's default camera
-        cap.set(cv2.CAP_PROP_FRAME_WIDTH, 750)
-        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 500)
-
         start_time = datetime.datetime.now()
-        im_width, im_height = (cap.get(3), cap.get(4))
+        im_width, im_height = (400, 350)
         num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
@@ -68,10 +72,12 @@ class Video(object):
 
         while True:
             # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
-            ret, image_np = cap.read()
+            if self.image_queue.empty():
+                continue
+            img_data = base64.b64decode(str(self.image_queue.get()))
+            image_np = np.asarray(Image.open(io.BytesIO(img_data)))
             image_np = cv2.flip(image_np, 1)
-            gray_image = cv2.cvtColor(image_np, cv2.COLOR_BGR2GRAY)
-            image_np = cv2.cvtColor(image_np, cv2.COLOR_BGR2RGB)
+            gray_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
 
             faces = detect_faces(face_detection, gray_image)
 

@@ -3,6 +3,7 @@ from flask_cors import CORS
 from audio import Audio
 from video import Video
 from threading import Thread
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -49,6 +50,14 @@ def get_scores():
     }
     return jsonify(data=scores)
 
+
+@app.route('/sendVideo', methods=['POST'])
+def send_video():
+    if VISION is not None:
+        VISION.image_queue.put(request.data.decode("utf-8").split(';base64,')[1][:-1])
+        return jsonify(success=True)
+    else:
+        return jsonify(success=False)
 
 
 if __name__ == '__main__':
