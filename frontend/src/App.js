@@ -43,6 +43,21 @@ class App extends Component {
     xhr.open("GET", "http://localhost:5000/current", true);
     xhr.send(null);
   };
+  calculateScore = () => {
+    let value = 100;
+    let average = (this.state.talkSpeedSum/this.state.talkSpeedTotal);
+    if(average>125){
+      value-= 30*((average-125)/125)
+    } else if(average < 85){
+      value-= 30*((85-average)/85)
+    }
+    let score = this.state.load.video.displacement;
+    if(score>8){
+      value -=60*((score-8)/8);
+    } else if(score < 5){
+      value-= 60*((5-average)/5)
+    }
+  }
   sumCount = (data) => {
     console.log(data);
     return (data.basically+data.like+data.literally+data.mean+data.okay+data.really+data.right+data.stuff+data.things+data.um+data.very+data.yeah);
@@ -64,9 +79,9 @@ class App extends Component {
     console.log("filler words count");
     return (
       <div className="App">
-        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
+        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'})}}/>
         <RealTime ref={this.RT} data={{score: (this.state.load.video.displacement/(10*this.state.load.video.frames)), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed
-        }} callback={ ()=> {scrollToComponent(this.SMRY.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'}); clearInterval(this.state.querying)}}/>
+        }} callback={ ()=> {scrollToComponent(this.SMRY.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'}); clearInterval(this.state.querying)}}/>
         <Summary ref={this.SMRY} summaryData={{
             expression:{
               happy: this.state.load.video.emotions.happy,
@@ -96,7 +111,7 @@ class App extends Component {
               movement: this.state.load.video.displacement,
             },
             overallRating: {
-              overall: 100,
+              overall: this.calculateScore,
             }
               }}/>
       </div>
