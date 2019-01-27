@@ -15,9 +15,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
-        <RealTime ref={this.RT} data={{score: 40, expression: "happy", filler: 300, speed: null}}/>
-        {/* <Summary summaryData= {
+        {/* <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
+        <RealTime ref={this.RT} data={{score: 40, expression: "happy", filler: 300, speed: null}}/> */}
+        <Summary summaryData= {
           {
             expression:{
               happy: 20,
@@ -47,7 +47,7 @@ class App extends Component {
             overallRating: {
               overall: 72,
             }
-              }}/> */}
+              }}/>
       </div>
     );
   }
