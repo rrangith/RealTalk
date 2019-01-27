@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import scrollToComponent from 'react-scroll-to-component';
 import  RealTime  from './realtime'
 import  Welcome  from './welcome'
 import  Summary  from './summary'
@@ -7,12 +8,16 @@ import { Section } from './summary'
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.RT = React.createRef()   // Create a ref object 
+  }
   render() {
     return (
       <div className="App">
-      {/* <Welcome></Welcome> */}
-        {/* <RealTime data={{score: 40, expression: "happy", filler: 300, speed: null}}/> */}
-        <Summary summaryData= {
+        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
+        <RealTime ref={this.RT} data={{score: 40, expression: "happy", filler: 300, speed: null}}/>
+        {/* <Summary summaryData= {
           {
             expression:{
               happy: 20,
@@ -42,7 +47,7 @@ class App extends Component {
             overallRating: {
               overall: 72,
             }
-              }}/>
+              }}/> */}
       </div>
     );
   }

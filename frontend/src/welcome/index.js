@@ -7,6 +7,7 @@ import speed from "../images/speedometer.png";
 import volume from "../images/volume.png";
 import { fadeIn } from "react-animations";
 
+
 const fader = keyframes`${fadeIn}`;
 
 const Body = styled.header`
@@ -162,10 +163,14 @@ const Button = styled.button`
   padding: 15px;
   border-radius: 15px;
   border: 1px solid #4ac29a;
+  background-color: white;
   color: #4ac29a;
 `;
 
 class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <Body>
@@ -251,7 +256,7 @@ class Welcome extends React.Component {
               </tr>
             </tbody>
           </Table>
-          <Button>Let's get started.</Button>
+          <Button onClick={this.props.callback}>Let's get started.</Button>
         </div>
       </Body>
     );
