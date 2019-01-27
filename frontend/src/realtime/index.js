@@ -1,5 +1,5 @@
 import React from 'react';
-import { VictoryAxis, VictoryPie, VictoryChart, VictoryArea } from 'victory';
+import { VictoryPie, VictoryChart, VictoryArea } from 'victory';
 import Webcam from 'react-webcam';
 import { ReactMic } from 'react-mic';
 import { FaSmile, FaFrown, FaSurprise, FaAngry, FaMehBlank } from 'react-icons/fa';
@@ -52,7 +52,7 @@ class RealTime extends React.Component {
                         <div id="body-language">
                         <span>Score: {Math.round(this.props.data.score * 100) / 100}</span>
                             <VictoryPie 
-                                startAngle={-90+(180*(7/10))}
+                                startAngle={-90+(180*(this.props.data.score/10))}
                                 endAngle={-90}
                                 animate={{duration: 500}}
                                 colorScale={["url(#talk-data)"]}
