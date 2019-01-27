@@ -101,7 +101,7 @@ class Video(object):
             else:
                 self.emotions[self.current_emotion] = 1
 
-            print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
+            #print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
 
             for face_coordinates in faces:
                 x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)

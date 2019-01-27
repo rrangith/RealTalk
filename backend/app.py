@@ -6,7 +6,7 @@ from threading import Thread
 
 app = Flask(__name__)
 CORS(app)
-app.config['DEBUG'] = True
+#app.config['DEBUG'] = True
 
 
 SPEECH = None
