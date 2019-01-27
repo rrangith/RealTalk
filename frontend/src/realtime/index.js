@@ -12,6 +12,28 @@ class RealTime extends React.Component {
     constructor(props) {
         super(props);
     }
+    setRef = webcam => {
+        this.webcam = webcam;
+      };    
+    capture = () => {
+        const imageSrc = this.webcam.getScreenshot();
+        var http = new XMLHttpRequest();
+        var params = 'data='+imageSrc;
+        http.open('POST', 'http://localhost:5000/sendVideo', true);
+        
+        //Send the proper header information along with the request
+        http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        
+        http.onreadystatechange = function() {//Call a function when the state changes.
+            if(http.readyState == 4 && http.status == 200) {
+                alert(http.responseText);
+            }
+        }
+        http.send(params);
+    }
+    component(){
+        setInterval(this.capture, 200)
+    }
     render(){
         console.log(this.props.data);
         return (
@@ -39,7 +61,9 @@ class RealTime extends React.Component {
                             />
                         </div>
                     </div>
-                    <div id="cam" className="grid-item-top"><Webcam height={350} width={400}/></div>
+                    <div id="cam" className="grid-item-top">
+                        <Webcam height={350} width={400} screenshotFormat="image/jpeg" ref={this.setRef}/>
+                    </div>
                     <div className="grid-item-top">
                         Facial Expressions <br/>
                         {this.props.data.expression.toLowerCase() === "happy"  ?  <FaSmile className="happy"/>:""}
