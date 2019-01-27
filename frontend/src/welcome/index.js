@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import hand from '../images/hand.png';
 import face from '../images/girlfacequestion.png';
+import speech from '../images/speech.png';
+import speed from '../images/speedometer.png';
+import volume from '../images/volume.png';
 
 
 const Body = styled.header `
@@ -60,34 +63,67 @@ const BoxHeading = styled.p `
     color: #4c5452;
     font-size: 24px;
     width: 200px;
+    margin-left: 200px;
 `
-const IconDescription = styled.p `
+const Hand = styled.img`
+width: 150px;
+`
+const IconDescriptionHand = styled.p `
     @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
     font-family: 'Encode Sans', sans-serif;
     color: #4c5452;
-    font-size: 16px;
+    font-size: 22px;
     width: 200px;
 `
 
-const Hand = styled.img`
-float: left;
-margin-top: 15px;
-width: 150px;
-`
-
 const FaceQuestion = styled.img `
-margin-top: 200px;
-float: right;
 width: 160px;
 `
+const IconDescriptionFace = styled.p `
+    @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
+    font-family: 'Encode Sans', sans-serif;
+    color: #4c5452;
+    font-size: 22px;
+    width: 200px;
+`
 
+const Speech = styled.img`
+width: 100px;
+`
+const IconDescriptionSpeech = styled.p `
+    @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
+    font-family: 'Encode Sans', sans-serif;
+    color: #4c5452;
+    font-size: 22px;
+    width: 200px;
+`
+const Speed = styled.img`
+width: 100px;
+`
+const IconDescriptionSpeed = styled.p `
+    @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
+    font-family: 'Encode Sans', sans-serif;
+    color: #4c5452;
+    font-size: 22px;
+    width: 200px;
+`
+const Volume = styled.img`
+width: 100px;
+`
+const IconDescriptionVolume = styled.p `
+    @import url('https://fonts.googleapis.com/css?family=Encode+Sans');
+    font-family: 'Encode Sans', sans-serif;
+    color: #4c5452;
+    font-size: 22px;
+    width: 200px;
+`
 const Table = styled.table`
     table-layout: fixed;
     margin-top: 40px;
+    margin-left: 10px;
     width: 100%;
      
 `
-
 
 class Welcome extends React.Component {
     render (){
@@ -103,24 +139,55 @@ class Welcome extends React.Component {
                     <Table>
                         <tbody>
                             <tr>
-                                <td align="center">
+                                <td>
                                 <BoxMovement>
-                                    <Hand src={hand}/>
-                                    <IconDescription>Monitor your hand movements</IconDescription>
+                                    <tr>
+                                        <td>
+                                            <Hand src={hand}/>
+                                        </td>
+                                        <td>
+                                            <IconDescriptionHand>Monitor your hand movements</IconDescriptionHand>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
                                     <FaceQuestion src={face}/>
-                                    <IconDescription>Observe your facial expressions</IconDescription>
+                                    </td>
+                                    <td>
+                                    <IconDescriptionFace>Observe your facial expressions</IconDescriptionFace>
+                                    </td>
+                                    </tr>
                                 </BoxMovement>
                                 <BoxHeading>Track Movements.</BoxHeading>
                                 </td>
 
-                                <td align="center">
+                                <td>
                                 <BoxVoice>
-                                    {/* image 1 */}
-                                    <IconDescription>Keep count of filler words</IconDescription>
-                                    {/* image 2 */}
-                                    <IconDescription>Find the perfect talking speed</IconDescription>
-                                    {/* image 3 */}
-                                    <IconDescription>Keep track of your volume and pitch</IconDescription>
+                                    <tr>
+                                        <td>
+                                    <Speech src={speech}/>
+                                    </td>
+                                    <td>
+                                    <IconDescriptionSpeech>Count your use of filler words</IconDescriptionSpeech>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                    <Speed src={speed}/>
+                                    </td>
+                                    <td>
+                                    <IconDescriptionSpeed>Find the perfect talking speed</IconDescriptionSpeed>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                    <Volume src={volume}/>
+                                    </td>
+                                    <td>
+                                    <IconDescriptionVolume>Keep track of your pitch and volume</IconDescriptionVolume>
+                                    </td>
+                                    </tr>
                                 </BoxVoice>
                                 <BoxHeading>Track Vocals.</BoxHeading>
                                 </td>
