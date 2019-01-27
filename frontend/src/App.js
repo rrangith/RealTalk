@@ -15,6 +15,7 @@ class App extends Component {
       currentTalkSpeed:[],
       talkSpeedSum: 0,
       talkSpeedTotal: 0,
+      established: false,
       querying: null,
     };
     this.RT = React.createRef();
@@ -67,7 +68,7 @@ class App extends Component {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         this.setState({
-          querying: setInterval(this.queryData, 500)
+          established: true,
         })
       }
     }.bind(this);
@@ -79,7 +80,11 @@ class App extends Component {
     console.log("filler words count");
     return (
       <div className="App">
-        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'})}}/>
+        <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'}); if(this.state.established){
+          this.setState({
+            querying: setInterval(this.queryData, 500)
+          })
+        }}}/>
         <RealTime ref={this.RT} data={{score: (this.state.load.video.displacement/(10*this.state.load.video.frames)), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed
         }} callback={ ()=> {scrollToComponent(this.SMRY.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'}); clearInterval(this.state.querying)}}/>
         <Summary ref={this.SMRY} summaryData={{
