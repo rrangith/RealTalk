@@ -18,7 +18,6 @@ from utils.preprocessor import preprocess_input
 
 class Video(object):
     def __init__(self):
-
         self.total_displacement = 0
         self.num_frames = 1 #make this 1 to avoid division by 0 error
 
@@ -96,7 +95,6 @@ class Video(object):
                 self.emotions[self.current_emotion] = 1
 
             print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
-
 
             for face_coordinates in faces:
                 x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)

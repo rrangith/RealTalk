@@ -45,13 +45,13 @@ def get_scores():
             'currentEmotion': VISION.getCurrentEmotion(),
             'emotions': VISION.getEmotions()
         },
-        #'audio': SPEECH.getSummary()
+        'audio': SPEECH.getSummary()
     }
     return jsonify(data=scores)
 
 
 
 if __name__ == '__main__':
-    #Thread(target=start_speech).start()
+    Thread(target=start_speech).start()
     Thread(target=start_vision).start()
     app.run(host='0.0.0.0', port=5000)
