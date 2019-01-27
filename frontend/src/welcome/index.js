@@ -174,6 +174,10 @@ class Welcome extends React.Component {
   render() {
     return (
       <Body>
+           <linearGradient id="talk-data">
+            <stop offset="0%" stopColor="#BDFFF3"/>
+            <stop offset="90%" stopColor="#4AC29A"/>
+            </linearGradient>
         <div className="Header">
           <Title>Hello. Welcome to Stage Fight.</Title>
           <Description>

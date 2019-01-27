@@ -64,28 +64,43 @@ class App extends Component {
               sad: 6,
               angry: 4,},
             filler: {
-              like: 0,
-              um:0,
-              basically: 0,
-              really:0,
-              very:0,
-              literally:0,
-              stuff:0,
-              things:0,
-              yeah:0,
-              okay:0,
-              right:0,
-              mean:0},
+// <<<<<<< frontend
+//               like: 2,
+//               um:12, 
+//               basically: 5, 
+//               really:2, 
+//               very:3, 
+//               literally:7, 
+//               stuff:9, 
+//               things:12, 
+//               yeah:6, 
+//               okay:2, 
+//               right:8, 
+//               mean:11},
+// =======
+//               like: 0,
+//               um:0,
+//               basically: 0,
+//               really:0,
+//               very:0,
+//               literally:0,
+//               stuff:0,
+//               things:0,
+//               yeah:0,
+//               okay:0,
+//               right:0,
+//               mean:0},
+// >>>>>>> master
             talkingSpeed: {
-              speed: 0,
+              speed: 60,
             },
             movement:  {
-              movement: 0,
+              movement: 14,
             },
             overallRating: {
-              overall: 0,
+              overall: 72,
             }
-              }}/> */}
+              }}/>
       </div>
     );
   }
