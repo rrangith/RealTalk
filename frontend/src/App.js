@@ -21,6 +21,8 @@ class App extends Component {
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         let copySpeed = this.state.currentTalkSpeed;
+        console.log("copy speed")
+        console.log(JSON.parse(xhr.responseText).data.audio.wpm_by_line)
         copySpeed.push({x: this.state.currentTalkSpeed.length+1, y: JSON.parse(xhr.responseText).data.audio.wpm_by_line})
         this.setState({
           load: JSON.parse(xhr.responseText).data,
@@ -46,11 +48,12 @@ class App extends Component {
 }
 
   render() {
-    console.log(this.state.load);
+    console.log("filler words count");
+    console.log(this.sumCount(this.state.load.audio.counts));
     return (
       <div className="App">
         <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
-        <RealTime ref={this.RT} data={{score: this.state.load.video.displacement/(10*this.state.load.video.frames), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed}}/>
+        <RealTime ref={this.RT} data={{score: (this.state.load.video.displacement), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed}}/>
         {/* <Summary summaryData= {
           {
             expression:{

@@ -29,7 +29,7 @@ class RealTime extends React.Component {
                         <div id="body-language">
                         <span>Score: {Math.round(this.props.data.score * 100) / 100}</span>
                             <VictoryPie 
-                                startAngle={-90+(180*(this.props.data.score/50))}
+                                startAngle={-90+(180*(this.props.data.score/10))}
                                 endAngle={-90}
                                 colorScale={["url(#talk-data)"]}
                                 data={[1]}
@@ -68,6 +68,7 @@ class RealTime extends React.Component {
                         <VictoryChart>
                             <VictoryArea
                             interpolation="natural"
+                            animate={{ duration: 2000 }}
                             style={{
                                 data: {fill: "url(#talk-data)"}
                             }}
