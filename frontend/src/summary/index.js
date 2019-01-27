@@ -140,11 +140,11 @@ class Summary extends React.Component {
                     width={800}
                     innerRadius={120}
                     data={[
-                      { x: 1, y: this.props.summaryData.expression.happy },
-                      { x: 2, y: this.props.summaryData.expression.neutral },
-                      { x: 3, y: this.props.summaryData.expression.surprised },
-                      { x: 4, y: this.props.summaryData.expression.sad },
-                      { x: 5, y: this.props.summaryData.expression.angry }
+                      { x: 1, y: Math.round(this.props.summaryData.expression.happy) },
+                      { x: 2, y: Math.round(this.props.summaryData.expression.neutral) },
+                      { x: 3, y: Math.round(this.props.summaryData.expression.surprise) },
+                      { x: 4, y: Math.round(this.props.summaryData.expression.sad) },
+                      { x: 5, y: Math.round(this.props.summaryData.expression.angry) }
                     ]}
                     labels={d => `${d.y}%`}
                     style={{ labels: { fontSize: 20, fill: "#4c5452" } }}
@@ -153,17 +153,19 @@ class Summary extends React.Component {
                 </Expression>
                 <ExpressionLegend>
                 <Legend>
-                  Happy: {this.props.summaryData.expression.happy}%
+                  Happy: {Math.round(this.props.summaryData.expression.happy)}%
                 </Legend>
                 <Legend>
-                  Neutral: {this.props.summaryData.expression.neutral}%
+                  Neutral: {Math.round(this.props.summaryData.expression.neutral)}%
                 </Legend>
                 <Legend>
-                  Surprised: {this.props.summaryData.expression.surprised}%
+                  Surprised: {Math.round(this.props.summaryData.expression.surprise)}%
                 </Legend>
-                <Legend>Sad: {this.props.summaryData.expression.sad}%</Legend>
                 <Legend>
-                  Angry: {this.props.summaryData.expression.angry}%
+                  Sad: {Math.round(this.props.summaryData.expression.sad)}%
+                </Legend>
+                <Legend>
+                  Angry: {Math.round(this.props.summaryData.expression.angry)}%
                 </Legend>
                 </ExpressionLegend>
               </Cell>
@@ -249,8 +251,8 @@ class Summary extends React.Component {
               </Line>
             </tr>
             <tr>
-              <Speed>{this.props.summaryData.talkingSpeed.speed}</Speed>
-              <Speed>{this.props.summaryData.movement.movement}</Speed>
+              <Speed>{Math.round(this.props.summaryData.talkingSpeed.speed)}</Speed>
+              <Speed>{Math.round(this.props.summaryData.movement.movement)}</Speed>
             </tr>
             <tr>
               <td>
@@ -266,7 +268,7 @@ class Summary extends React.Component {
         <OverallHeader> Overall Performance Score</OverallHeader>
         <Overall>
           <Space />
-          <Circle>{this.props.summaryData.overallRating.overall}</Circle>
+          <Circle>{Math.round(this.props.summaryData.overallRating.overall)}</Circle>
         </Overall>
         <Space />
         <Space />

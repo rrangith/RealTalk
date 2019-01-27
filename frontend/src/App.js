@@ -52,16 +52,19 @@ class App extends Component {
     } else if(average < 85){
       value-= 30*((85-average)/85)
     }
-    let score = this.state.load.video.displacement;
+    let score = this.state.load.video.displacement/(10*this.state.load.video.frames);
     if(score>8){
       value -=60*((score-8)/8);
     } else if(score < 5){
-      value-= 60*((5-average)/5)
+      value-= 60*((5-score)/5)
     }
+    return value;
   }
   sumCount = (data) => {
-    console.log(data);
     return (data.basically+data.like+data.literally+data.mean+data.okay+data.really+data.right+data.stuff+data.things+data.um+data.very+data.yeah);
+  }
+  sumExpressions = (data) => {
+    return (data.happy+data.surprise+data.neutral+data.sad+data.angry);
   }
   componentDidMount() {
     var xhr = new XMLHttpRequest();
@@ -77,7 +80,8 @@ class App extends Component {
 }
 
   render() {
-    console.log("filler words count");
+    console.log(this.state.load.video.emotions);
+    console.log(this.sumExpressions(this.state.load.video.emotions));
     return (
       <div className="App">
         <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'}); if(this.state.established){
@@ -89,11 +93,11 @@ class App extends Component {
         }} callback={ ()=> {scrollToComponent(this.SMRY.current, { offset: 0, align: 'top', duration: 900, ease:'inCirc'}); clearInterval(this.state.querying)}}/>
         <Summary ref={this.SMRY} summaryData={{
             expression:{
-              happy: this.state.load.video.emotions.happy,
-              surprised: this.state.load.video.emotions.surprised,
-              neutral: this.state.load.video.emotions.neutral,
-              sad: this.state.load.video.emotions.sad,
-              angry: this.state.load.video.emotions.angry
+              happy: this.state.load.video.emotions.happy/this.sumExpressions(this.state.load.video.emotions)*100,
+              surprise: this.state.load.video.emotions.surprise/this.sumExpressions(this.state.load.video.emotions)*100,
+              neutral: this.state.load.video.emotions.neutral/this.sumExpressions(this.state.load.video.emotions)*100,
+              sad: this.state.load.video.emotions.sad/this.sumExpressions(this.state.load.video.emotions)*100,
+              angry: this.state.load.video.emotions.angry/this.sumExpressions(this.state.load.video.emotions)*100
             },
             filler: {
               like: this.state.load.audio.counts.like,
@@ -113,10 +117,10 @@ class App extends Component {
               speed: (this.state.talkSpeedSum/this.state.talkSpeedTotal),
             },
             movement:  {
-              movement: this.state.load.video.displacement,
+              movement: this.state.load.video.displacement/(10*this.state.load.video.frames),
             },
             overallRating: {
-              overall: this.calculateScore,
+              overall: this.calculateScore(),
             }
               }}/>
       </div>

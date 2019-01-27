@@ -67,7 +67,7 @@ class RealTime extends React.Component {
                     <div className="grid-item-top">
                         Facial Expressions <br/>
                         {this.props.data.expression.toLowerCase() === "happy"  ?  <FaSmile className="happy"/>:""}
-                        {this.props.data.expression.toLowerCase() === "surprised"  ?  <FaSurprise className="happy"/>:""}
+                        {this.props.data.expression.toLowerCase() === "surprise"  ?  <FaSurprise className="happy"/>:""}
                         {this.props.data.expression.toLowerCase() === "neutral"  ?  <FaMehBlank className="neutral"/>:""}
                         {this.props.data.expression.toLowerCase() === "sad"  ?  <FaFrown className="sad"/>:""}
                         {this.props.data.expression.toLowerCase() === "angry"  ?  <FaAngry className="sad"/>:""}
@@ -75,13 +75,13 @@ class RealTime extends React.Component {
                             </div> 
                             :
                             <span>
-                                {this.props.data.expression.toLowerCase() === "happy" || this.props.data.expression.toLowerCase() === "surprised" ? 
+                                {this.props.data.expression.toLowerCase() === "happy" || this.props.data.expression.toLowerCase() === "surprise" ?
                                     <div className="happyText">{this.props.data.expression}</div>
                                 :
                                     <span>
                                         {this.props.data.expression.toLowerCase() ==="angry" || this.props.data.expression.toLowerCase() ==="sad" ? <div className="sadText">{this.props.data.expression}</div>
                                         : 
-                                        <div className="neutralText">Neutral</div>}
+                                        <span><FaMehBlank className="neutral"/><div className="neutralText">Neutral</div></span>}
                                     </span>
                                 }
                             </span> 
@@ -98,7 +98,6 @@ class RealTime extends React.Component {
                         <VictoryChart>
                             <VictoryArea
                             interpolation="natural"
-                            animate={{ duration: 2000 }}
                             style={{
                                 data: {fill: "url(#talk-data)"}
                             }}
