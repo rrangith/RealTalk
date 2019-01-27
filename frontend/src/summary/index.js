@@ -3,14 +3,13 @@ import styled, { keyframes } from "styled-components";
 import { VictoryPie, VictoryChart, VictoryBar } from "victory";
 import { fadeIn } from "react-animations";
 
-
 const fader = keyframes`${fadeIn}`;
 
 const Body = styled.header`
   background: #4ac29a;
   background: -webkit-linear-gradient(to bottom, #4ac29a, #bdfff3);
   background: linear-gradient(to bottom, #4ac29a, #bdfff3);
-  
+
   width: 100%;
 `;
 const Title = styled.h1`
@@ -22,26 +21,27 @@ const Title = styled.h1`
   font-size: 45px;
 `;
 const Expression = styled.div`
-
+animation: 4s ${fader};
 `;
 const Filler = styled.div`
   margin-top: -120px !important;
   margin-left: 50px;
   width: 650px;
   height: 650px;
-
 `;
 
 const Overall = styled.div`
   @import url("https://fonts.googleapis.com/css?family=Raleway");
   font-family: "Raleway", sans-serif;
-  color: #4c5452;
+  color: #6C6E70;
   font-size: 180px;
   text-align: center;
+  animation: 15s ${fader};
 `;
 
 const Circle = styled.circle`
   border: 8px solid #FFFFFF;
+  opacity: 0.8;
   border-radius: 50%;
   padding: 0px 20px 10px 20px;
 `;
@@ -68,16 +68,15 @@ const ChartHeader = styled.td`
 const Line = styled.td`
 width: 30%
 padding: 0px 50px;
+weight: 4px;
 `;
 
 const Speed = styled.td`
   @import url("https://fonts.googleapis.com/css?family=Raleway");
   font-family: "Raleway", sans-serif;
-  color: #4c5452;
+  color: #808080;
   font-size: 200px;
   text-align: center;
-  animation: 6s ${fader};
-
 `;
 
 const Legend = styled.p`
@@ -91,6 +90,13 @@ const Legend = styled.p`
 const FillerLegend = styled.div`
   margin-top: -150px;
   margin-left: 240px;
+  animation: 10s ${fader};
+
+`;
+
+const ExpressionLegend = styled.div`
+animation: 10s ${fader};
+
 `;
 
 const Space = styled.div`
@@ -141,8 +147,10 @@ class Summary extends React.Component {
                     ]}
                     labels={d => `${d.y}%`}
                     style={{ labels: { fontSize: 20, fill: "#4c5452" } }}
-                  />
+                    colorScale={["#BBFDF0"]}
+                    />
                 </Expression>
+                <ExpressionLegend>
                 <Legend>
                   Happy: {this.props.summaryData.expression.happy}%
                 </Legend>
@@ -156,13 +164,14 @@ class Summary extends React.Component {
                 <Legend>
                   Angry: {this.props.summaryData.expression.angry}%
                 </Legend>
+                </ExpressionLegend>
               </Cell>
 
               <Cell>
                 <Filler>
-                  <VictoryChart domainPadding={10}>
+                  <VictoryChart domainPadding={10} animate={{duration: 500}}>
                     <VictoryBar
-                      style={{ data: { fill: "grey" } }}
+                      style={{ data: { fill: "#BBFDF0" } }}
                       data={[
                         { x: 1, y: this.props.summaryData.filler.like },
                         { x: 2, y: this.props.summaryData.filler.um },
@@ -244,10 +253,10 @@ class Summary extends React.Component {
             </tr>
             <tr>
               <td>
-                <Legend>words per minute</Legend>
+                <Legend>Words per Minute</Legend>
               </td>
               <td>
-                <Legend>suggested range: 15 - 35</Legend>
+                <Legend>Suggested Range: 5 - 10</Legend>
               </td>
             </tr>
           </tbody>
