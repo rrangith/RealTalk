@@ -18,6 +18,14 @@ from utils.preprocessor import preprocess_input
 
 class Video(object):
     def __init__(self):
+        self.total_displacement = 0
+        self.num_frames = 1 #make this 1 to avoid division by 0 error
+
+        self.current_emotion = 'neutral'
+
+        self.emotions = {}
+
+    def run(self):
         detection_graph, sess = detector_utils.load_inference_graph()
 
         # parameters for loading data and images
@@ -48,14 +56,7 @@ class Video(object):
         num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
-        self.total_displacement = 0
         old_points = [None]*num_hands_detect
-        self.num_frames = 1 #make this 1 to avoid division by 0 error
-
-        self.current_emotion = 'neutral'
-
-        self.emotions = {}
-
         cv2.namedWindow('Single-Threaded Detection', cv2.WINDOW_NORMAL)
 
         while True:
@@ -95,7 +96,6 @@ class Video(object):
 
             print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
 
-
             for face_coordinates in faces:
                 x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)
                 gray_face = gray_image[y1:y2, x1:x2]
@@ -132,16 +132,14 @@ class Video(object):
                 cv2.destroyAllWindows()
                 break
 
-    def getTotalDisplacement():
+    def getTotalDisplacement(self):
         return self.total_displacement
 
-    def getNumFrames():
+    def getNumFrames(self):
         return self.num_frames
 
-    def getCurrentEmotion():
+    def getCurrentEmotion(self):
         return self.current_emotion
 
-    def getEmotions():
+    def getEmotions(self):
         return self.emotions
-
-v = Video()
