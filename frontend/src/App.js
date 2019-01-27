@@ -13,21 +13,30 @@ class App extends Component {
     this.state = {
       load: {"audio":{"counts":{"basically":0,"like":0,"literally":0,"mean":0,"okay":0,"really":0,"right":0,"stuff":0,"things":0,"um":0,"very":0,"yeah":0},"crutch_count_by_line":[0],"wpm_by_line":[0]},"video":{"currentEmotion":"surprised","displacement":0,"emotions":{"angry":0,"fear":0,"happy":0,"neutral":0},"frames":0}},
       currentTalkSpeed:[],
+      talkSpeedSum: 0,
+      talkSpeedTotal: 0,
+      querying: null,
     };
     this.RT = React.createRef();
+    this.SMRY = React.createRef();
   }
   queryData = () => {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
         let copySpeed = this.state.currentTalkSpeed;
+        let newSum = this.state.talkSpeedSum;
+        let newTotal = this.state.talkSpeedTotal;
         if(JSON.parse(xhr.responseText).data.audio.wpm_by_line[JSON.parse(xhr.responseText).data.audio.wpm_by_line.length-1] !== undefined){
           copySpeed.push({x: this.state.currentTalkSpeed.length+1, y: JSON.parse(xhr.responseText).data.audio.wpm_by_line[JSON.parse(xhr.responseText).data.audio.wpm_by_line.length-1]})
-          console.log(copySpeed);
+          newTotal++;
+          newSum += JSON.parse(xhr.responseText).data.audio.wpm_by_line[JSON.parse(xhr.responseText).data.audio.wpm_by_line.length-1];
         }
         this.setState({
           load: JSON.parse(xhr.responseText).data,
-          currentTalkSpeed: copySpeed
+          currentTalkSpeed: copySpeed,
+          talkSpeedSum: newSum,
+          talkSpeedTotal: newTotal
         });
       }
     }.bind(this);
@@ -42,7 +51,9 @@ class App extends Component {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
       if (xhr.readyState == XMLHttpRequest.DONE) {
-        setInterval(this.queryData, 500);
+        this.setState({
+          querying: setInterval(this.queryData, 500)
+        })
       }
     }.bind(this);
     xhr.open("GET", "http://localhost:5000/start", true);
@@ -54,51 +65,38 @@ class App extends Component {
     return (
       <div className="App">
         <Welcome callback={()=> {scrollToComponent(this.RT.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'})}}/>
-        <RealTime ref={this.RT} data={{score: (this.state.load.video.displacement/(10*this.state.load.video.frames)), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed}}/>
-        {/* <Summary summaryData= {
-          {
+        <RealTime ref={this.RT} data={{score: (this.state.load.video.displacement/(10*this.state.load.video.frames)), expression: this.state.load.video.currentEmotion, filler: this.sumCount(this.state.load.audio.counts), speed: this.state.currentTalkSpeed
+        }} callback={ ()=> {scrollToComponent(this.SMRY.current, { offset: 0, align: 'top', duration: 1500, ease:'inCirc'}); clearInterval(this.state.querying)}}/>
+        <Summary ref={this.SMRY} summaryData={{
             expression:{
-              happy: 20,
-              surprised:30,
-              neutral: 40,
-              sad: 6,
-              angry: 4,},
+              happy: this.state.load.video.emotions.happy,
+              surprised: this.state.load.video.emotions.surprised,
+              neutral: this.state.load.video.emotions.neutral,
+              sad: this.state.load.video.emotions.sad,
+              angry: this.state.load.video.emotions.angry
+            },
             filler: {
-// <<<<<<< frontend
-//               like: 2,
-//               um:12, 
-//               basically: 5, 
-//               really:2, 
-//               very:3, 
-//               literally:7, 
-//               stuff:9, 
-//               things:12, 
-//               yeah:6, 
-//               okay:2, 
-//               right:8, 
-//               mean:11},
-// =======
-//               like: 0,
-//               um:0,
-//               basically: 0,
-//               really:0,
-//               very:0,
-//               literally:0,
-//               stuff:0,
-//               things:0,
-//               yeah:0,
-//               okay:0,
-//               right:0,
-//               mean:0},
-// >>>>>>> master
+              like: this.state.load.audio.counts.like,
+              um: this.state.load.audio.counts.um, 
+              basically: this.state.load.audio.counts.basically, 
+              really:this.state.load.audio.counts.really, 
+              very:this.state.load.audio.counts.very, 
+              literally:this.state.load.audio.counts.literally, 
+              stuff:this.state.load.audio.counts.stuff, 
+              things:this.state.load.audio.counts.things, 
+              yeah:this.state.load.audio.counts.yeah, 
+              okay:this.state.load.audio.counts.okay, 
+              right:this.state.load.audio.counts.right, 
+              mean:this.state.load.audio.counts.mean,
+            },
             talkingSpeed: {
-              speed: 60,
+              speed: (this.state.talkSpeedSum/this.state.talkSpeedTotal),
             },
             movement:  {
-              movement: 14,
+              movement: this.state.load.video.displacement,
             },
             overallRating: {
-              overall: 72,
+              overall: 100,
             }
               }}/>
       </div>

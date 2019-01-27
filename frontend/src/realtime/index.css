@@ -109,3 +109,8 @@
     color: rgb(196, 196, 196);
     text-transform:capitalize;
 }
+#downarrow{
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}

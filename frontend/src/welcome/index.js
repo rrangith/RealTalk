@@ -5,6 +5,7 @@ import face from "../images/girlfacequestion.png";
 import speech from "../images/speech.png";
 import speed from "../images/speedometer.png";
 import volume from "../images/volume.png";
+import realtalklogo from "../images/realtalklogo.png";
 import { fadeIn } from "react-animations";
 
 
@@ -14,7 +15,7 @@ const Body = styled.header`
   background: #4ac29a;
   background: -webkit-linear-gradient(to bottom, #4ac29a, #bdfff3);
   background: linear-gradient(to bottom, #4ac29a, #bdfff3);
-  height: 100%;
+  height: 100vh;
   width: 100%;
   font-color: white;
 `;
@@ -73,6 +74,7 @@ font-family: "Raleway", sans-serif;
 const Hand = styled.img`
   width: 140px;
   animation: 3s ${fader};
+  opacity: 0.75;
   margin-top: 15px;
 
 
@@ -91,6 +93,7 @@ const IconDescriptionHand = styled.p`
 const FaceQuestion = styled.img`
   width: 120px;
   animation: 6s ${fader};
+  opacity: 0.75;
   margin-top: 15px;
 
 
@@ -109,8 +112,8 @@ const IconDescriptionFace = styled.p`
 
 const Speech = styled.img`
   width: 120px;
+  opacity: 0.75;
   animation: 3s ${fader};
-
 `;
 const IconDescriptionSpeech = styled.p`
   @import url("https://fonts.googleapis.com/css?family=Encode+Sans");
@@ -125,8 +128,8 @@ const IconDescriptionSpeech = styled.p`
 `;
 const Speed = styled.img`
   width: 100px;
+  opacity: 0.75;
   animation: 6s ${fader};
-
 `;
 const IconDescriptionSpeed = styled.p`
   @import url("https://fonts.googleapis.com/css?family=Encode+Sans");
@@ -141,8 +144,8 @@ const IconDescriptionSpeed = styled.p`
 `;
 const Volume = styled.img`
   width: 100px;
+  opacity: 0.75;
   animation: 9s ${fader};
-
 `;
 const IconDescriptionVolume = styled.p`
   @import url("https://fonts.googleapis.com/css?family=Encode+Sans");
@@ -163,10 +166,14 @@ const Button = styled.button`
   padding: 15px;
   border-radius: 15px;
   border: 1px solid #4ac29a;
+  outline:none;
   background-color: white;
   color: #4ac29a;
 `;
 
+const Logo = styled.img`
+  height: 80px;
+`;
 class Welcome extends React.Component {
   constructor(props) {
     super(props);
@@ -179,14 +186,14 @@ class Welcome extends React.Component {
             <stop offset="90%" stopColor="#4AC29A"/>
             </linearGradient>
         <div className="Header">
-          <Title>Hello. Welcome to Stage Fight.</Title>
+          <Title><Logo src={realtalklogo}/> Hi. Welcome to RealTalk.</Title>
           <Description>
-            Stage Fight is designed to help you do better. By monitoring your
+          RealTalk is designed to help you do better. By monitoring your
             movements, voice, and providing real-time feedback, this application
             helps you improve your presentation and communication skills.
           </Description>
           <Description>
-            Designed to be a versatile learning tool, Stage Fight is the ideal
+            Designed to be a versatile learning tool, RealTalk is the ideal
             app to help you achieve your goals, whatever they may be.
           </Description>
         </div>

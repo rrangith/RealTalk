@@ -18,6 +18,7 @@ const Title = styled.h1`
   color: #ffffff;
   padding-top: 50px;
   margin-bottom: 50px;
+  margin-top: 0px;
   font-size: 45px;
 `;
 const Expression = styled.div`

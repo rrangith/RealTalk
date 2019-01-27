@@ -4,6 +4,7 @@ import Webcam from 'react-webcam';
 import { ReactMic } from 'react-mic';
 import { FaSmile, FaFrown, FaSurprise, FaAngry, FaMehBlank } from 'react-icons/fa';
 import './index.css'
+import arrow from "../images/arrow.png";
 
 
 
@@ -92,6 +93,7 @@ class RealTime extends React.Component {
                                 backgroundColor="white" />
                         </div>
                     </div>
+                    <img id="downarrow" onClick={this.props.callback} src={arrow}/>
                 </div>
             </div>
     )};
