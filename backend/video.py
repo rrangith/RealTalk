@@ -24,6 +24,13 @@ class Video(object):
         self.current_emotion = 'neutral'
 
         self.emotions = {}
+        self.emotions['happy'] = 0
+        self.emotions['sad'] = 0
+        self.emotions['angry'] = 0
+        self.emotions['neutral'] = 0
+        self.emotions['surprise'] = 0
+        self.emotions['fear'] = 0
+
 
     def run(self):
         detection_graph, sess = detector_utils.load_inference_graph()
