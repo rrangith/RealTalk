@@ -1,5 +1,6 @@
 from utils import detector_utils as detector_utils
 import cv2
+import tensorflow as tf
 import datetime
 
 from statistics import mode
@@ -16,7 +17,6 @@ from utils.inference import load_detection_model
 from utils.preprocessor import preprocess_input
 
 class Video(object):
-
     def __init__(self):
         detection_graph, sess = detector_utils.load_inference_graph()
 
@@ -45,7 +45,7 @@ class Video(object):
 
         start_time = datetime.datetime.now()
         im_width, im_height = (cap.get(3), cap.get(4))
-        num_hands_detect = 2  # max number of hands we want to detect/track, can scale this up
+        num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
         self.total_displacement = 0
@@ -53,6 +53,8 @@ class Video(object):
         self.num_frames = 1 #make this 1 to avoid division by 0 error
 
         self.current_emotion = 'neutral'
+
+        self.emotions = {}
 
         cv2.namedWindow('Single-Threaded Detection', cv2.WINDOW_NORMAL)
 
@@ -85,7 +87,14 @@ class Video(object):
             self.num_frames += 1
             elapsed_time = (datetime.datetime.now() - start_time).total_seconds()
             fps = self.num_frames / elapsed_time
-            print(self.total_displacement/(10*self.num_frames), self.current_emotion)
+
+            if self.current_emotion in self.emotions:
+                self.emotions[self.current_emotion] += 1
+            else:
+                self.emotions[self.current_emotion] = 1
+
+            print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
+
 
             for face_coordinates in faces:
                 x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)
@@ -123,11 +132,16 @@ class Video(object):
                 cv2.destroyAllWindows()
                 break
 
-    def getTotalDisplacement(self):
+    def getTotalDisplacement():
         return self.total_displacement
 
-    def getNumFrames(self):
+    def getNumFrames():
         return self.num_frames
 
-    def getCurrentEmotion(self):
+    def getCurrentEmotion():
         return self.current_emotion
+
+    def getEmotions():
+        return self.emotions
+
+v = Video()

@@ -36,7 +36,9 @@ def get_scores():
         'audio': SPEECH.getSummary(),
         'video': {
             'displacement': VISION.getTotalDisplacement(),
-            'frames': VISION.getNumFrames()
+            'frames': VISION.getNumFrames(),
+            'currentEmotion': VISION.getCurrentEmotion(),
+            'emotions': VISION.getEmotions()
         }
     }
     return jsonify(data=scores)
@@ -44,4 +46,3 @@ def get_scores():
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=5000)
-
