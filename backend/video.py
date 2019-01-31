@@ -1,6 +1,5 @@
 from utils import detector_utils as detector_utils
 import cv2
-import tensorflow as tf
 import datetime
 
 from statistics import mode
@@ -10,7 +9,6 @@ import numpy as np
 
 from utils.datasets import get_labels
 from utils.inference import detect_faces
-from utils.inference import draw_text
 from utils.inference import draw_bounding_box
 from utils.inference import apply_offsets
 from utils.inference import load_detection_model
@@ -23,6 +21,7 @@ import io
 
 
 class Video(object):
+
     def __init__(self):
         self.total_displacement = 0
         self.num_frames = 1 #make this 1 to avoid division by 0 error
@@ -38,7 +37,6 @@ class Video(object):
         self.emotions['fear'] = 0
 
         self.image_queue = queue.Queue()
-
 
     def run(self):
         detection_graph, sess = detector_utils.load_inference_graph()
@@ -63,7 +61,6 @@ class Video(object):
         emotion_window = []
 
         start_time = datetime.datetime.now()
-        im_width, im_height = (400, 350)
         num_hands_detect = 2 # max number of hands we want to detect/track, can scale this up
         min_threshold = 0.2
 
@@ -75,9 +72,11 @@ class Video(object):
             if self.image_queue.empty():
                 continue
             img_data = base64.b64decode(str(self.image_queue.get()))
-            image_np = np.asarray(Image.open(io.BytesIO(img_data)))
+            image = Image.open(io.BytesIO(img_data))
+            image_np = np.asarray(image)
             image_np = cv2.flip(image_np, 1)
             gray_image = cv2.cvtColor(image_np, cv2.COLOR_RGB2GRAY)
+            im_width, im_height = image.size
 
             faces = detect_faces(face_detection, gray_image)
 
@@ -107,8 +106,6 @@ class Video(object):
             else:
                 self.emotions[self.current_emotion] = 1
 
-            print(self.total_displacement/(10*self.num_frames), self.current_emotion, self.emotions)
-
             for face_coordinates in faces:
                 x1, x2, y1, y2 = apply_offsets(face_coordinates, emotion_offsets)
                 gray_face = gray_image[y1:y2, x1:x2]
@@ -121,7 +118,6 @@ class Video(object):
                 gray_face = np.expand_dims(gray_face, 0)
                 gray_face = np.expand_dims(gray_face, -1)
                 emotion_prediction = emotion_classifier.predict(gray_face)
-                emotion_probability = np.max(emotion_prediction)
                 emotion_label_arg = np.argmax(emotion_prediction)
                 self.current_emotion = emotion_labels[emotion_label_arg]
                 emotion_window.append(self.current_emotion)

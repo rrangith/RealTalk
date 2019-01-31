@@ -20,6 +20,7 @@ class Audio(object):
         }
         for filler in fillers:
             self.summary['counts'][filler] = 0
+
     def run(self):
         # See http://g.co/cloud/speech/docs/languages
         # for a list of supported languages.

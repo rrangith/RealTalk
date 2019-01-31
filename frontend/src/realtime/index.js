@@ -14,7 +14,19 @@ class RealTime extends React.Component {
     }
     setRef = webcam => {
         this.webcam = webcam;
-      };    
+      };
+    onData(recordedBlob) {
+        var url = "http://localhost:5000/sendAudio";
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
+        xhr.onload = function () {
+            if(xhr.readyState == 4 && xhr.status == "201") {
+                console.log(xhr.responseText);
+            }
+        }
+        xhr.send(recordedBlob);
+    }
     capture = () => {
         const imageSrc = this.webcam.getScreenshot();
         var url = "http://localhost:5000/sendVideo";
@@ -113,7 +125,9 @@ class RealTime extends React.Component {
                                 record={true}
                                 className="sound-wave"
                                 strokeColor="#4AC29A"
-                                backgroundColor="white" />
+                                backgroundColor="white"
+                                onData={this.onData}
+                            />
                         </div>
                     </div>
                     <img id="downarrow" onClick={this.props.callback} src={arrow}/>

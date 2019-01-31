@@ -11,7 +11,37 @@ class App extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      load: {"audio":{"counts":{"basically":0,"like":0,"literally":0,"mean":0,"okay":0,"really":0,"right":0,"stuff":0,"things":0,"um":0,"very":0,"yeah":0},"crutch_count_by_line":[0],"wpm_by_line":[0]},"video":{"currentEmotion":"surprised","displacement":0,"emotions":{"angry":0,"fear":0,"happy":0,"neutral":0},"frames":0}},
+      load: {
+        "audio": {
+          "counts": {
+            "basically":0,
+            "like":0,
+            "literally":0,
+            "mean":0,
+            "okay":0,
+            "really":0,
+            "right":0,
+            "stuff":0,
+            "things":0,
+            "um":0,
+            "very":0,
+            "yeah":0
+          },
+          "crutch_count_by_line":[0],
+          "wpm_by_line":[0]
+        },
+        "video": {
+          "currentEmotion": "surprised",
+          "displacement":0,
+          "emotions": {
+            "angry":0,
+            "fear":0,
+            "happy":0,
+            "neutral":0
+          },
+          "frames":0
+        }
+      },
       currentTalkSpeed:[],
       talkSpeedSum: 0,
       talkSpeedTotal: 0,
