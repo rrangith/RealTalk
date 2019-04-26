@@ -45,22 +45,15 @@ def load_inference_graph():
 
 # draw the detected bounding boxes on the images
 # You can modify this to also draw a label.
-def draw_box_on_image(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np, old_points, calc_displacement):
-    displacement = 0
+def get_coords(num_hands_detect, score_thresh, scores, boxes, im_width, im_height, image_np):
+    coords = []
     for i in range(num_hands_detect):
         if (scores[i] > score_thresh):
             (left, right, top, bottom) = (boxes[i][1] * im_width, boxes[i][3] * im_width,
                                           boxes[i][0] * im_height, boxes[i][2] * im_height)
-            p1 = (int(left), int(top))
-            p2 = (int(right), int(bottom))
-            cv2.rectangle(image_np, p1, p2, (77, 255, 9), 3, 1)
-            if calc_displacement:
-                if old_points[i] is None:
-                    old_points[i] = p1
-                else:
-                    displacement += math.sqrt(((p1[0]-old_points[i][0])**2)+((p1[1]-old_points[i][1])**2))
+            coords.push((int(left), int(top), int(right), int(bottom)))
 
-    return displacement
+    return coords
 
 
 # Show fps value on image.

@@ -1,6 +1,5 @@
 from flask import Flask, render_template, jsonify, request, abort
 from flask_cors import CORS
-from audio import Audio
 from video import Video
 from threading import Thread
 import json
